@@ -1,51 +1,21 @@
-version: '3.8'
-
+version: '3'
 services:
-  app:
-    image: openjdk:17
-    container_name: spring-boot-app
-    working_dir: /app
-    volumes:
-      - .:/app
-    ports:
-      - "8080:8080"
+  mysql_container:
+    image: mysql:latest
+    container_name: mysql_db_container  # Tên của container MySQL
     environment:
-      SPRING_APPLICATION_NAME: demo
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/sql12763031
-      SPRING_DATASOURCE_USERNAME: sql12763031
-      SPRING_DATASOURCE_PASSWORD: rNMQGpkPy9
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL8Dialect
-    depends_on:
-      - db
-    command: ["sh", "-c", "cd /app && ./mvnw spring-boot:run"]
-
-  db:
-    image: mysql:8
-    container_name: mysql-db
-    restart: always
-    environment:
-      MYSQL_DATABASE: sql12763031
-      MYSQL_USER: sql12763031
-      MYSQL_PASSWORD: rNMQGpkPy9
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: rNMQGpkPy9
     ports:
       - "3306:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    restart: always
+  app:
+    image:  qht1604/fengshuikoi-app:v4.0
+    container_name: springboot_container  # Tên củadocker compose up container ứng dụng
     environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: rootpassword
-    ports:
-      - "8081:80"
+      MYSQL_URL: "jdbc:mysql://vsos.mysql.database.azure.com:3306/demo"
+      MYSQL_USER: "quanlam"
+      MYSQL_PASSWORD: "rNMQGpkPy9"
     depends_on:
-      - db
-
-volumes:
-  mysql-data:
+      - mysql_container
+    ports:
+      - "8080:8080"
