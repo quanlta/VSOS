@@ -4,7 +4,7 @@ services:
     image: mysql:latest
     container_name: mysql_db_container  # Tên của container MySQL
     environment:
-      MYSQL_ROOT_PASSWORD: 16042002
+      MYSQL_ROOT_PASSWORD: rNMQGpkPy9
     ports:
       - "3306:3306"
 
@@ -12,9 +12,9 @@ services:
     image:  qht1604/fengshuikoi-app:v4.0
     container_name: springboot_container  # Tên củadocker compose up container ứng dụng
     environment:
-      MYSQL_URL: "jdbc:mysql://mysql_container:3306/demo_seminar"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: "16042002"
+      MYSQL_URL: "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12763031"
+      MYSQL_USER: "sql12763031"
+      MYSQL_PASSWORD: "rNMQGpkPy9"
     depends_on:
       - mysql_container
     ports:
