@@ -70,8 +70,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                    .antMatchers("/swagger-ui/**").permitAll()
-        .antMatchers("/v3/api-docs/**").permitAll();
                 .cors(withDefaults()) // Enable CORS
                 .authorizeHttpRequests(
                         req -> req
