@@ -61,7 +61,6 @@ public class SecurityConfig {
         config.addAllowedOriginPattern("*"); // Allow specific origin
         config.addAllowedHeader("*"); // Allow all headers
         config.addAllowedMethod("*"); // Allow all methods (GET, POST, etc.)
-        org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
@@ -71,6 +70,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                    .antMatchers("/swagger-ui/**").permitAll()
+        .antMatchers("/v3/api-docs/**").permitAll();
                 .cors(withDefaults()) // Enable CORS
                 .authorizeHttpRequests(
                         req -> req
